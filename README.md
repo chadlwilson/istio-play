@@ -43,7 +43,8 @@ kubectl apply -f istio-1.18.0/samples/bookinfo/networking/virtual-service-review
 ```shell
 k create ns new
 kubectl run -i --tty --rm debug --image=ghcr.io/containeroo/alpine-toolbox:latest --restart=Never -n new -- sh
-# curl -vvv http://reviews.default:9080
+
+curl -vvv http://reviews.default:9080
 
 kubectl apply -n istio-system -f - <<EOF
 apiVersion: security.istio.io/v1beta1
@@ -55,10 +56,12 @@ spec:
     mode: STRICT
 EOF
 
-# curl -vvv -k https://reviews.default:9080
+# Check connectivity - note we can't mTLS to the service now
+curl -vvv -k https://reviews.default:9080
 
-# apk add openssl && openssl s_client -showcerts -servername -connect reviews.default:9080
-# https://redkestrel.co.uk/products/decoder/
+# What does the service cert look like?
+apk add openssl && openssl s_client -showcerts -servername -connect reviews.default:9080
+# Check out cert on https://redkestrel.co.uk/products/decoder/
 ```
 
 
