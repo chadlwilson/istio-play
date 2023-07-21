@@ -1,2 +1,2 @@
 [tools]
-istioctl = "latest"
+istioctl = "1.18.0"
