@@ -76,5 +76,7 @@ kubectl delete -f istio-1.18.0/samples/bookinfo/platform/kube/bookinfo.yaml
 istioctl uninstall -y --purge
 k delete ns istio-system
 colima stop --profile k8s-istio
-colima start --profile k8s-istio --cpu 8 --memory 6 --kubernetes
+
+# Full clean
+colima delete --profile k8s-istio
 ```
